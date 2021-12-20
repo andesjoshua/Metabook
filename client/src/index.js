@@ -2,14 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import {MoralisProvider} from 'react-moralis'
+import {BrowserRouter} from 'react-router-dom';
+
+const moraliisAppId = "AArzOFcU6CsJ9lJnop3lgm2q2GoadJl2Cd3rrBN5"
+const moralisServerURL = "https://2b4f2b9jaqmn.usemoralis.com:2053/server"
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <MoralisProvider appId={moraliisAppId} serverUrl={moralisServerURL}>
+      <BrowserRouter>
+        <App appId={moraliisAppId} serverUrl={moralisServerURL}/>
+      </BrowserRouter>
+    </MoralisProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

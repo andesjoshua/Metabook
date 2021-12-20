@@ -1,12 +1,22 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 import logoOne from '../assets/react_resized.png'
 import logoTwo from '../assets/rails_resized.png'
 import icon from '../assets/search.png'
 import themeSwitchIcon from '../assets/theme-switch.png'
-
-function Header() {
+import {useMoralis} from 'react-moralis'
+import {NavLink, Routes, Route} from 'react-router-dom'
+import Forum from './Forum'
+function Header({changeTheme, authenticate, isAuthenticated, user, setNFTs}) {
     
+      const {logout, isAuthenticating} = useMoralis()
+
+      const Logout = () => {
+        return (
+            <Login isLoading={isAuthenticating} disabled={isAuthenticating} onClick={() => {setNFTs([]); logout();}}>DISCONNECT</Login>
+        )
+        
+      }
     return (
         <HeaderDiv>
            <LogosContainer>
@@ -18,21 +28,23 @@ function Header() {
                 <Icon src={icon}/>
                 <Input placeholder='users, collections, etc...'/>
            </SearchBar>
-
-           <ButtonDiv>
-                <button>sds</button>
-                <button>sds</button>
-           </ButtonDiv>
-
+            <ButtonDiv>
+                <NavLink to='/forum'><button>Forum</button></NavLink>
+                <NavLink to='/'><button>Marketplace</button></NavLink>
+            </ButtonDiv>
            <HeaderActions>
-                <button><img src={themeSwitchIcon} /></button>
+                <button onClick={changeTheme}><img src={themeSwitchIcon} /></button>
            </HeaderActions>
+
+            {!isAuthenticated && !user ? <Login onClick={() => authenticate({signingMessage: "Welcome, please sign in."})}>
+            CONNECT WALLET
+           </Login> : Logout()}
         </HeaderDiv>
     )
 }
 
 const HeaderDiv = styled.div`
-    color: white;
+    color: black;
     height: 100px;
     justify-content: space-between;
     display: flex;
@@ -68,15 +80,35 @@ const ButtonDiv = styled.div`
         margin: 10px;
         background-color: transparent;
         border: none;
-        color: lightgrey;
+        color: grey;
         font-size: 18px;
         cursor: pointer;
     }
 `
 const HeaderActions = styled.div`
-
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    img {
+        height: 25px
+    }
     button {
-
+        background-color: #1c1c1e;
+        border: none;
+        border-radius: 50px;
+        padding: 15px;
+        justify-content: center;
+        align-items: center;
+        object-fit:contain;
     }
 `
+const Login = styled.button`
+    background: linear-gradient(to right, #1b5, #1b9);
+    padding: 15px 40px;
+    border-radius: 50px;
+`
+const Button = styled.button`
+    background: linear-gradient(to right, #1b5, #1b9);
+    padding: 15px 40px;
+    border-radius: 50px;`
 export default Header
