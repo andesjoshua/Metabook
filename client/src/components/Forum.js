@@ -12,6 +12,7 @@ function Forum() {
 };
 
 const ForumContainer = styled.h1`
+    background-color: grey;
     width: 70%;
     height: 70%;
     color: white;
