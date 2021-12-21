@@ -1,8 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import styled from 'styled-components';
-import logoOne from '../assets/react_resized.png'
-
-
 
 function Main({nfts, selectedNft}) {
     const [activeNft, setActiveNft] = useState(nfts[0])

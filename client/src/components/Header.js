@@ -6,7 +6,7 @@ import icon from '../assets/search.png'
 import themeSwitchIcon from '../assets/theme-switch.png'
 import {useMoralis} from 'react-moralis'
 import {NavLink, Routes, Route} from 'react-router-dom'
-import Forum from './Forum'
+
 function Header({changeTheme, authenticate, isAuthenticated, user, setNFTs}) {
     
       const {logout, isAuthenticating} = useMoralis()
@@ -15,8 +15,14 @@ function Header({changeTheme, authenticate, isAuthenticated, user, setNFTs}) {
         return (
             <Login isLoading={isAuthenticating} disabled={isAuthenticating} onClick={() => {setNFTs([]); logout();}}>DISCONNECT</Login>
         )
-        
       }
+    //   const Login = () => {
+    //       return (
+    //         <Login onClick={() => authenticate({signingMessage: "Welcome, please sign in."})}>
+    //         CONNECT WALLET
+    //        </Login>
+    //       )
+    //   }
     return (
         <HeaderDiv>
            <LogosContainer>
@@ -35,9 +41,11 @@ function Header({changeTheme, authenticate, isAuthenticated, user, setNFTs}) {
            <HeaderActions>
                 <button onClick={changeTheme}><img src={themeSwitchIcon} /></button>
            </HeaderActions>
-
-            {!isAuthenticated && !user ? <Login onClick={() => authenticate({signingMessage: "Welcome, please sign in."})}>
-            CONNECT WALLET
+            {!isAuthenticated && !user ? <Login onClick={() => {
+                authenticate({signingMessage: "Welcome, please sign in."})
+                
+            }}>
+              CONNECT WALLET
            </Login> : Logout()}
         </HeaderDiv>
     )
