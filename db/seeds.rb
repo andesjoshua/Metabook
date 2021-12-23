@@ -7,3 +7,5 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 messageOne = Message.create(content: "Hello from the seeds", wallet_id: 2)
+messageOne = Message.create(content: "Hello from the seeds again", wallet_id: 2)
+

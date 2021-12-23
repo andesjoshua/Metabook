@@ -7,7 +7,7 @@ function Main({nfts, selectedNft}) {
     useEffect(() => {
         setActiveNft(nfts[selectedNft])
     }, [nfts, selectedNft])
-    console.log(nfts[0])
+
     return (
         <MainDisplay>
             <MainContent>

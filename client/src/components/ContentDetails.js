@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 function ContentDetails({content}) {
-    console.log(content)
+
     return (
         <ContentBox>
             <ContentAddress>
@@ -11,6 +11,7 @@ function ContentDetails({content}) {
             <ContentMessage>
                 {content.content}
             </ContentMessage>
+            
         </ContentBox>
     )
 }
@@ -19,9 +20,11 @@ const ContentBox = styled.p`
     padding: 10px;
     display: flex;
     flex-direction: column;
-    margin-right: 450px;
+    margin-right: 440px;
     align-items: left;
-    max-width: 300px;
+    border-color: black;
+    border-top: 1px solid white;
+    width: 100%
 `
 const ContentAddress = styled.div`
     display: flex;

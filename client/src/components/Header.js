@@ -43,7 +43,6 @@ function Header({changeTheme, authenticate, isAuthenticated, user, setNFTs}) {
            </HeaderActions>
             {!isAuthenticated && !user ? <Login onClick={() => {
                 authenticate({signingMessage: "Welcome, please sign in."})
-                
             }}>
               CONNECT WALLET
            </Login> : Logout()}
