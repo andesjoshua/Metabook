@@ -14,42 +14,19 @@ function App({serverUrl, appId}) {
 
   Moralis.start({serverUrl, appId})
 
-  const [color, setColor] = useState('black');
+  const [color, setColor] = useState('#1c1c1e');
   const [NFTs, setNFTs] = useState([]);
   const [NFTsPath, setNFTsPath] = useState([]);
   const [selectedNft, setSelectedNft] = useState(0);
-  const [userData, setUserData] = useState([]);
   const [forumContent, setForumContent] = useState([])
 
-  const changeTheme = () => {color === 'white' ? setColor('black') : setColor('white')}
+  const changeTheme = () => {color === '#AEB6BF' ? setColor('#1c1c1e') : setColor('#AEB6BF')}
 
   const {
     authenticate, 
     isAuthenticated,
     user,
-  } = useMoralis();
-  
-  // useEffect(() => {
-  //   function checkIfUserExists() {
-  //     let address = userData.map((userData) => {
-  //       console.log(user.attributes.ethAddress)
-  //       console.log(userData.address)
-  //      if(user.attributes.ethAddress === userData.address) console.log(address)
-   
-  //      })
-  //      // if(user && isAuthenticated) {
-  //      // }
-  //    }
-  //    checkIfUserExists()
-  // }, [user, isAuthenticated])
-  
-    // useEffect(() => {
-    //   fetch('http://localhost:3000/wallets')
-    //   .then(response => response.json())
-    //   .then(data => setUserData(data))
-    // }, [user, isAuthenticated])
-
-    
+  } = useMoralis();    
 
   let openSeaWallet = `https://testnets-api.opensea.io/assets?asset_contract_address=${NFTsPath}&format=json&order_direction=asc`;
 
@@ -75,7 +52,7 @@ function App({serverUrl, appId}) {
         {NFTs.length > 0 && (
           <>
           <Routes>
-            <Route  path='/forum' element={<Forum content={forumContent}/>}/>
+            <Route  path='/forum' element={<Forum user={user} content={forumContent}/>}/>
             <Route  path='/' element={<><Main selectedNft={selectedNft} nfts={NFTs}/> <NftList nfts={NFTs} setSelectedNft={setSelectedNft}/></> }/>
           </Routes>
           </>

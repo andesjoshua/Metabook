@@ -3,26 +3,55 @@ import styled from 'styled-components';
 import ContentDetails from './ContentDetails';
 import CreateMessage from './CreateMessage'
 
-function Forum() {
+function Forum({user}) {
     const [content, setContent] = useState([])
+    const [walletId, setWalletId] = useState('')
+    const [address, setAddress] = useState([])
 
+       
     useEffect(() => {
-        fetch('http://localhost:3000/forum')
+        setAddress(user.attributes.ethAddress)
+    }, [user])
+    // console.log(address)
+    useEffect(() => {
+        fetch('/forum')
         .then(response => response.json())
-        .then(data => setContent(data))
+        .then(data =>  setContent(data))
       }, [])
 
-      return (
+      useEffect(() => {
+        fetch('/wallets')
+        .then(response => response.json())
+        .then(data => {
+            data.map((field) => {
+                    if(field.address === user.attributes.ethAddress) {
+                        setWalletId(field.id)
+                    } else if(field.address !== user.attributes.ethAddress && data.length < 30) {
+                       fetch('/wallets', { 
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({address}),
+                      })
+                         .then(response => response.json())
+                    }
+            })
+        })
+      }, [address])
+
+        let reversedContent = [...content].reverse()
+
+        return (
         <>
         <Welcome>
                 Welcome to Metabook! A place to share your thoughts with the world from your ethereum wallet address
         </Welcome>
-        <CreateMessage />
+        <CreateMessage wallet_id={walletId}/>
         <ForumContainer>
-            
             <MessageContainer>
-                {content.map(contents => {
-                    return <ContentDetails content={contents}/>
+                {reversedContent.map(contents => {
+                        return <ContentDetails content={contents} user={user} wallet_id={walletId}/>
                 })}
             </MessageContainer>
         </ForumContainer>
@@ -31,7 +60,6 @@ function Forum() {
 };
 
 const ForumContainer = styled.div`
-    background-color: grey;
     color: white;
     display:flex;
     margin:10px;

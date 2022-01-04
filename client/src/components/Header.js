@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import logoOne from '../assets/react_resized.png'
 import logoTwo from '../assets/rails_resized.png'
@@ -9,20 +9,15 @@ import {NavLink, Routes, Route} from 'react-router-dom'
 
 function Header({changeTheme, authenticate, isAuthenticated, user, setNFTs}) {
     
-      const {logout, isAuthenticating} = useMoralis()
+      const {logout, isAuthenticating} = useMoralis();
+
 
       const Logout = () => {
         return (
             <Login isLoading={isAuthenticating} disabled={isAuthenticating} onClick={() => {setNFTs([]); logout();}}>DISCONNECT</Login>
         )
       }
-    //   const Login = () => {
-    //       return (
-    //         <Login onClick={() => authenticate({signingMessage: "Welcome, please sign in."})}>
-    //         CONNECT WALLET
-    //        </Login>
-    //       )
-    //   }
+
     return (
         <HeaderDiv>
            <LogosContainer>
@@ -36,13 +31,13 @@ function Header({changeTheme, authenticate, isAuthenticated, user, setNFTs}) {
            </SearchBar>
             <ButtonDiv>
                 <NavLink to='/forum'><button>Forum</button></NavLink>
-                <NavLink to='/'><button>Marketplace</button></NavLink>
+                <NavLink to='/'><button>Profile</button></NavLink>
             </ButtonDiv>
            <HeaderActions>
                 <button onClick={changeTheme}><img src={themeSwitchIcon} /></button>
            </HeaderActions>
             {!isAuthenticated && !user ? <Login onClick={() => {
-                authenticate({signingMessage: "Welcome, please sign in."})
+                authenticate({signingMessage: "Welcome, please sign in."});
             }}>
               CONNECT WALLET
            </Login> : Logout()}
@@ -51,7 +46,6 @@ function Header({changeTheme, authenticate, isAuthenticated, user, setNFTs}) {
 }
 
 const HeaderDiv = styled.div`
-    color: black;
     height: 100px;
     justify-content: space-between;
     display: flex;
@@ -62,7 +56,7 @@ const LogosContainer = styled.div`
     width: 200px;
 `
 const SearchBar = styled.div`
-    background-color: #1c1c1e;
+    background-color: #17202A;
     height: 50px;
     flex: 1;
     display: flex;

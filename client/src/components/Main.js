@@ -21,7 +21,6 @@ function Main({nfts, selectedNft}) {
                 <Details>
                 <OwnerNameAndWallet>
                         <div>{activeNft.owner.address}</div>
-                        <div>@andesjoshua</div>
                         </OwnerNameAndWallet>
                 </Details>
                 <Owner>

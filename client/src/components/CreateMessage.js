@@ -1,9 +1,9 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
+import image from './message_image.png'
 
 function CreateMessage({wallet_id}) {
-    const [content, setContent] = useState("")
-
+    const [content, setContent] = useState([])
     function handleSubmit(e) {
         e.preventDefault();
         fetch("/messages", {
@@ -11,24 +11,28 @@ function CreateMessage({wallet_id}) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ content, wallet_id }),
+          body: JSON.stringify({ content, wallet_id}),
         })
            .then(response => response.json())
-           .then(data => console.log(data))
+           .then(() => {
+             setContent('')
+            })
       }
 
       return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} >
             <UsernameField>
                 <Input
                 type="text"
                 id="username"
+                placeholder="into the void your thoughts go"
                 autoComplete="off"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 />
+                <Submit type='submit'><img style={{width: 20}}src={image} /></Submit>
             </UsernameField>
-            <Submit type='submit'></Submit>
+            
         </form>
     )
 }
@@ -48,11 +52,17 @@ const Input = styled.input`
   line-height: 1.5;
   padding: 4px;
 `;
+
 const Submit = styled.button`
 display: flex;
 width: 25px;
-height: 20px;
+margin-left: 3px;
+margin-top: 5px;
+height: 25px;
 `
 
-const UsernameField = styled.div``
+const UsernameField = styled.div`
+display: flex;
+justify-content: center;
+margin-top: 20px;`
 export default CreateMessage

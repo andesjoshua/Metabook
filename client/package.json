@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^12.8.3",
     "@walletconnect/web3-provider": "^1.7.0",
     "axios": "^0.24.0",
+    "javascript-time-ago": "^2.3.10",
     "moralis": "0.0.165",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -19,6 +20,7 @@
     "react-router": "^6.2.1",
     "react-router-dom": "^6.2.1",
     "react-scripts": "4.0.3",
+    "react-time-ago": "^7.1.4",
     "styled-components": "^5.3.3",
     "web-vitals": "^1.1.2"
   },

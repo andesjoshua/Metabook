@@ -21,7 +21,7 @@ function CardCollection({id, name, traits, image}) {
 
 const CardContainer = styled.div`
     color: white;
-    background-color: #1a1e1c;
+    background-color: #17202A;
     border-radius: 20px;
     overflow: hidden;
     width: 300px;
@@ -40,7 +40,7 @@ const CardName = styled.div`
     font-weight: bold;
 `
 const CardId = styled.div`
-    color: #a1a5b0
+    color: #a1a5b0;
 `
 const CardPrice = styled.div`
     display:flex;
