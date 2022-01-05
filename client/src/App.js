@@ -29,7 +29,6 @@ function App({serverUrl, appId}) {
   } = useMoralis();    
 
   let openSeaWallet = `https://testnets-api.opensea.io/assets?asset_contract_address=${NFTsPath}&format=json&order_direction=asc`;
-
   useEffect(() => {
     const getMyNfts = async () => {
       const openSeaData = await axios.get(openSeaWallet)
@@ -41,6 +40,7 @@ function App({serverUrl, appId}) {
   useEffect(() => {
     const getMyMoralisNfts = async () => {
       const testnetNFTs = await Moralis.Web3API.account.getNFTs({ chain: 'rinkeby' });
+      console.log(testnetNFTs)
       setNFTsPath(testnetNFTs.result[0].token_address)
     }
     return getMyMoralisNfts()

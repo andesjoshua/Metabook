@@ -12,13 +12,14 @@ function Forum({user}) {
     useEffect(() => {
         setAddress(user.attributes.ethAddress)
     }, [user])
-    // console.log(address)
+    
     useEffect(() => {
         fetch('/forum')
         .then(response => response.json())
-        .then(data =>  setContent(data))
+        .then(data =>  { 
+          setContent(data)
+        })
       }, [])
-
       useEffect(() => {
         fetch('/wallets')
         .then(response => response.json())
@@ -47,11 +48,11 @@ function Forum({user}) {
         <Welcome>
                 Welcome to Metabook! A place to share your thoughts with the world from your ethereum wallet address
         </Welcome>
-        <CreateMessage wallet_id={walletId}/>
+        <CreateMessage wallet_id={walletId} setContents={setContent} contents={content}/>
         <ForumContainer>
             <MessageContainer>
                 {reversedContent.map(contents => {
-                        return <ContentDetails content={contents} user={user} wallet_id={walletId}/>
+                        return <ContentDetails key={contents.id} content={contents} setContent={setContent} contents={content} user={user} wallet_id={walletId}/>
                 })}
             </MessageContainer>
         </ForumContainer>

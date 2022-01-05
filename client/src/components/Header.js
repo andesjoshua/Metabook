@@ -1,20 +1,24 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import logoOne from '../assets/react_resized.png'
 import logoTwo from '../assets/rails_resized.png'
 import icon from '../assets/search.png'
 import themeSwitchIcon from '../assets/theme-switch.png'
 import {useMoralis} from 'react-moralis'
-import {NavLink, Routes, Route} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 
 function Header({changeTheme, authenticate, isAuthenticated, user, setNFTs}) {
     
       const {logout, isAuthenticating} = useMoralis();
 
-
+        const loginFunctions = () => {
+                setNFTs([])
+                logout()
+        }
+        
       const Logout = () => {
         return (
-            <Login isLoading={isAuthenticating} disabled={isAuthenticating} onClick={() => {setNFTs([]); logout();}}>DISCONNECT</Login>
+            <Login isLoading={isAuthenticating} disabled={isAuthenticating} onClick={() => loginFunctions()}>DISCONNECT</Login>
         )
       }
 
@@ -27,7 +31,7 @@ function Header({changeTheme, authenticate, isAuthenticated, user, setNFTs}) {
 
            <SearchBar>
                 <Icon src={icon}/>
-                <Input placeholder='users, collections, etc...'/>
+                <Input placeholder=''/>
            </SearchBar>
             <ButtonDiv>
                 <NavLink to='/forum'><button>Forum</button></NavLink>

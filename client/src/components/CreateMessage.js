@@ -2,8 +2,9 @@ import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import image from './message_image.png'
 
-function CreateMessage({wallet_id}) {
+function CreateMessage({wallet_id, setContents, contents}) {
     const [content, setContent] = useState([])
+
     function handleSubmit(e) {
         e.preventDefault();
         fetch("/messages", {
@@ -14,25 +15,25 @@ function CreateMessage({wallet_id}) {
           body: JSON.stringify({ content, wallet_id}),
         })
            .then(response => response.json())
-           .then(() => {
-             setContent('')
+           .then(data => {
+             setContent([])
+             setContents([...contents, data])
             })
       }
-
+      
       return (
         <form onSubmit={handleSubmit} >
             <UsernameField>
                 <Input
-                type="text"
-                id="username"
-                placeholder="into the void your thoughts go"
-                autoComplete="off"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
+                  type="text"
+                  id="username"
+                  placeholder="into the void your thoughts go"
+                  autoComplete="off"
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
                 />
                 <Submit type='submit'><img style={{width: 20}}src={image} /></Submit>
             </UsernameField>
-            
         </form>
     )
 }

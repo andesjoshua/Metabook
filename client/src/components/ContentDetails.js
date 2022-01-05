@@ -1,21 +1,26 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 import ReactTimeAgo from 'react-time-ago'
 import ReplyContent from './ReplyContent'
 import ReplyDetails from './ReplyDetails'
+import image from './delete_x.png'
 
-function ContentDetails({content, wallet_id}) {
+function ContentDetails({content, setContent, wallet_id, contents}) {
 
     const [isVisible, setIsVisible] = useState(false)
     const setVisibility = () => {isVisible === false ? setIsVisible(true): setIsVisible(false)}
-    // console.log(content.comments)
-    // let reversedComment = content.comments.reverse()
-    // console.log(reversedComment)
-    let [...newComments] = content.comments
- 
-   
+
+    const handleDelete = () => {
+        fetch(`/messages/${content.id}`, {
+            method: 'delete',
+        })
+        .then(() => {
+            setContent([...contents.filter(stuff => stuff.id !== content.id)])
+        })
+    }
     return (
         <ContentBox>
+            <DeleteMessage onClick={() => handleDelete()}><img src={image} style={{width: 10}} /></DeleteMessage>
             <ContentAddress>
                 {content.wallet.address} |
                 <p>{<ReactTimeAgo date={content.created_at} locale="en-US"/>}</p>
@@ -23,17 +28,10 @@ function ContentDetails({content, wallet_id}) {
             <ContentMessage>
                 {content.content}
             </ContentMessage>
-            <div>
-            {/* {isVisible && content.comments.length !== 0 ? content.comments.map((comment) => '---------------') : null} */}
-            </div>
-            {/* <ContentReplyAddress>
-                {isVisible && content.comments.length !== 0 ? content.comments.map((comment) => "Anon") : null}
-            </ContentReplyAddress> */}
-            <ReplyContent isVisible={isVisible} content={content} wallet_id={wallet_id}/>
-            
+            <ReplyContent isVisible={isVisible} content={content} setContent={setContent} contents={contents} wallet_id={wallet_id}/>
             <ContentReply>
-                {isVisible && content.comments.length !== 0 ? newComments.reverse().map((comment) => {
-                  return <ReplyDetails comment={comment}/>
+                {isVisible && content.comments.length !== 0 ? [...content.comments].reverse().map((comment) => {
+                  return <ReplyDetails key={comment.id} comment={comment}/>
                 }) : null}
             </ContentReply>
             <Reply onClick={() => setVisibility()}>
@@ -42,6 +40,15 @@ function ContentDetails({content, wallet_id}) {
         </ContentBox>
     )
 }
+
+const DeleteMessage = styled.button`
+    height: 15px;
+    width: 15px;
+    display:flex;
+    margin-left: 542px;
+    margin-top: 0px;
+    position: absolute;
+`
 
 const ContentBox = styled.div`
     padding: 10px;

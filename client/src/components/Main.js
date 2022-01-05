@@ -16,7 +16,7 @@ function Main({nfts, selectedNft}) {
                         <img src={activeNft.image_original_url} alt=''/>
                     </PunkContainer>
                     <h2>{activeNft.name}</h2>
-                    <span>- #{selectedNft}</span>
+                    <span>#{selectedNft}</span>
                 </Highlight>
                 <Details>
                 <OwnerNameAndWallet>
@@ -45,16 +45,20 @@ const Highlight = styled.div`
 color: #fff;
 flex: 0.25;
 display: flex;
-align-items: center;
 justify-content: center;
+position: relative;
+margin-bottom: 0px;
  h2 {
-     font-size: 90px;
+     font-size: 70px;
      font-weight: 800;
+     margin-left: 20px;
+     margin-top:0px;
  }
  span {
      color: #a1a5b0;
-     font-size: 72px;
+     font-size: 60px;
      align-self: center;
+     margin-bottom: 0px;
  }
 `
 const PunkContainer = styled.div`
@@ -63,15 +67,27 @@ overflow: hidden;
 display: flex;
     img {
         object-fit: contain;
-        max-width: min(200vw, 200vh);
+        width: 350px;
+        max-width: min(350vw, 200vh);
         height: 250px
     }
 `
 const Owner = styled.div`
+display:flex;
+margin: 10px 0;
+height: 50px;
 `
 const OwnerImageContainer = styled.div`
+height: 50px;
+width: 50px;
+border-radius: 50%;
+border-top-radius: 50px;
+overflow: hidden;
+object-fit: contain;
 `
 const OwnerNameAndWallet = styled.div`
+margin-bottom: 0px;
+position: absolute;
 color: #fff;`
 
 const Details = styled.div`

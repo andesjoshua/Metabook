@@ -9,6 +9,14 @@ class MessagesController < ApplicationController
         render json: content, status: :created
     end
 
+    def destroy
+        message = Message.find_by(id: params[:id])
+        if message
+            message.destroy
+            head :no_content
+        end
+    end
+
     private
 
     def message_params
