@@ -13,7 +13,7 @@ function NftList({nfts, setSelectedNft}) {
                         id={nft.token_id}
                         name={nft.name} 
                         traits={nft.traits}
-                        image={nft.image_original_url} 
+                        image={nft.image_url} 
                     />
                 </Card>
             ))}

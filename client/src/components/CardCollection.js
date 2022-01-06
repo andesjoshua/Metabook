@@ -28,9 +28,9 @@ return (
                 <img src={weth} />
                 <p>{traits[0].value}</p>
             </CardPrice>
-            <Transfer onClick={() => transfer()}>
+            {/* <Transfer onClick={() => transfer()}>
                 send
-            </Transfer>
+            </Transfer> */}
         </CardContainer>
     )
 }

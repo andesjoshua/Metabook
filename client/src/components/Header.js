@@ -112,8 +112,5 @@ const Login = styled.button`
     padding: 15px 40px;
     border-radius: 50px;
 `
-const Button = styled.button`
-    background: linear-gradient(to right, #1b5, #1b9);
-    padding: 15px 40px;
-    border-radius: 50px;`
+
 export default Header
